@@ -29,7 +29,8 @@ public class KeywordController {
     @PostMapping("/api/v2/keyword")
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse<KeywordResponseDto> keyword(@RequestBody @Valid List<KeywordRequestDto> keywordRequestDtoList) {
-        final KeywordResponseDto data = keywordService.getKeyword(keywordRequestDtoList);
+//        final KeywordResponseDto data = keywordService.getKeyword(keywordRequestDtoList);
+        final KeywordResponseDto data = KeywordResponseDto.of("되나요", "됩니까", "되나용");
         return BaseResponse.success(SuccessCode.GET_SUCCESS, data);
     }
 
