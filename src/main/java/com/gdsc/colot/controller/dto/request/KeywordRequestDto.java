@@ -10,10 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KeywordRequestDto {
-    private List<QAndA> qAndAList;
+    private Integer question_id;
+    private Integer answer;
 }
 
-class QAndA {
-    private String question;
-    private String answer;
-}
