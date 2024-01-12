@@ -1,7 +1,7 @@
 package com.gdsc.colot.service;
 
 import com.gdsc.colot.controller.dto.request.KeywordRequestDto;
-import com.gdsc.colot.controller.dto.response.QnA;
+import com.gdsc.colot.controller.dto.response.KeywordResponseDto;
 import com.gdsc.colot.controller.dto.response.QnAResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,19 +18,19 @@ import java.util.Set;
 public class KeywordServiceImpl implements KeywordService {
     private final int Q_CNT = 8;
 
-    public static final List<QnA> qnAList = List.of(
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2")
+    public static final List<QnAResponseDto> Q_AA_LIST = List.of(
+            new QnAResponseDto("q1", "a11", "a21"),
+            new QnAResponseDto("q2", "a12", "a22"),
+            new QnAResponseDto("q3", "a13", "a23"),
+            new QnAResponseDto("q4", "a14", "a24"),
+            new QnAResponseDto("q5", "a15", "a25"),
+            new QnAResponseDto("q6", "a16", "a26"),
+            new QnAResponseDto("q7", "a17", "a27"),
+            new QnAResponseDto("q8", "a18", "a28"),
+            new QnAResponseDto("q9", "a19", "a29"),
+            new QnAResponseDto("q10", "a110", "a210"),
+            new QnAResponseDto("q11", "a111", "a211"),
+            new QnAResponseDto("q12", "a112", "a212")
     );
 
     @Override
@@ -39,7 +39,7 @@ public class KeywordServiceImpl implements KeywordService {
         Set<Integer> uniqueNumbers = new HashSet<>();
 
         while (numbers.size() < Q_CNT) {
-            int randomNumber = (int) (Math.random() * qnAList.size());
+            int randomNumber = (int) (Math.random() * Q_AA_LIST.size());
             if (uniqueNumbers.add(randomNumber))
                 numbers.add(randomNumber);
         }
@@ -47,7 +47,7 @@ public class KeywordServiceImpl implements KeywordService {
         List<QnAResponseDto> questionList = new ArrayList<>();
         for (int n : numbers)
             questionList.add(
-                    new QnAResponseDto(qnAList.get(n).getQuestion(), qnAList.get(n).getAnswer1(), qnAList.get(n).getAnswer2())
+                    new QnAResponseDto(Q_AA_LIST.get(n).getQuestion(), Q_AA_LIST.get(n).getAnswer1(), Q_AA_LIST.get(n).getAnswer2())
             );
 
         return questionList;
@@ -56,11 +56,11 @@ public class KeywordServiceImpl implements KeywordService {
 
 
     @Override
-    public String getKeyword(KeywordRequestDto keywordRequestDto) { // 추출된 키워드 보내기
+    public List<String> getKeyword(List<KeywordRequestDto> keywordRequestDtoList) { // 추출된 키워드 보내기
         String requestURL = "";
         String API_KEY = "";
 
-        String keyword = null;
+        List<String> response = new ArrayList<>();
 
 //        try {
 //            HttpClient client = HttpClientBuilder.create().build();
@@ -73,7 +73,8 @@ public class KeywordServiceImpl implements KeywordService {
 //            if (response.getStatusLine().getStatusCode() == 200) {
 //                ResponseHandler<String> handler = new BasicResponseHandler();
 //                String body = handler.handleResponse(response);
-//                keyword = body;
+//                response.add(keyword);
+        //      response.add(detail);
 //            } else {
 //                System.out.println("response is error : " + response.getStatusLine().getStatusCode());
 //            }
@@ -82,6 +83,13 @@ public class KeywordServiceImpl implements KeywordService {
 //            System.err.println(e.toString());
 //        }
 
-        return keyword;
+        return response;
+    }
+
+
+    @Override
+    public String getImage(String keyword) {
+        // 이미지 api
+        return null;
     }
 }

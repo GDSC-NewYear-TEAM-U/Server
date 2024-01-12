@@ -2,6 +2,7 @@ package com.gdsc.colot.controller;
 
 import com.gdsc.colot.common.dto.BaseResponse;
 import com.gdsc.colot.controller.dto.request.KeywordRequestDto;
+import com.gdsc.colot.controller.dto.response.KeywordResponseDto;
 import com.gdsc.colot.controller.dto.response.QnAResponseDto;
 import com.gdsc.colot.exception.SuccessCode;
 import com.gdsc.colot.service.KeywordService;
@@ -26,8 +27,12 @@ public class KeywordController {
 
     @PostMapping("/api/v2/keyword")
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<String> keyword(@RequestBody @Valid KeywordRequestDto keywordRequestDto) {
-        final String keyword = keywordService.getKeyword(keywordRequestDto);
-        return BaseResponse.success(SuccessCode.GET_SUCCESS, keyword);
+    public BaseResponse<KeywordResponseDto> keyword(@RequestBody @Valid List<KeywordRequestDto> keywordRequestDtoList) {
+        final List<String> tmp = keywordService.getKeyword(keywordRequestDtoList);
+        final String keyword = tmp.get(0);
+        final String detail = tmp.get(1);
+        final String image = keywordService.getImage(keyword);
+        final KeywordResponseDto keywordResponseDto = new KeywordResponseDto(keyword, detail, image);
+        return BaseResponse.success(SuccessCode.GET_SUCCESS, keywordResponseDto);
     }
 }
