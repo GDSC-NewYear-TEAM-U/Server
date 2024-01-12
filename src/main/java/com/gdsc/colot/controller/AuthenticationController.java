@@ -74,7 +74,7 @@ public class AuthenticationController {
 
     @ApiIgnore
     @RequestMapping("/oauth2/callback/{provider}")
-    public BaseResponse<SignInResponseDto> oAuth2AuthenticationCallback(@PathVariable String provider, OAuth2AuthorizationResponseDto oAuth2AuthorizationResponseDto, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void oAuth2AuthenticationCallback(@PathVariable String provider, OAuth2AuthorizationResponseDto oAuth2AuthorizationResponseDto, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         if (oAuth2AuthorizationResponseDto.getError() != null) {
             throw new OAuth2RequestFailedException(
@@ -97,7 +97,8 @@ public class AuthenticationController {
                 user.getType(),
                 jwtProvider.generateToken(userDetails.getUsername())
         );
-        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS, data);
+        response.sendRedirect("http://localhost:3001");
+//        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS, data);
     }
 
     private String generateState() {
