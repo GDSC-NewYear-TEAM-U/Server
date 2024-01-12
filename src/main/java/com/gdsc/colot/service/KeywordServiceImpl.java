@@ -1,16 +1,17 @@
 package com.gdsc.colot.service;
 
 import com.gdsc.colot.controller.dto.request.KeywordRequestDto;
-import com.gdsc.colot.controller.dto.response.KeywordResponseDto;
 import com.gdsc.colot.controller.dto.response.QnAResponseDto;
+
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.net.URI;
+import java.util.*;
 
 @Service
 @Transactional
@@ -57,53 +58,29 @@ public class KeywordServiceImpl implements KeywordService {
 
     @Override
     public List<String> getKeyword(List<KeywordRequestDto> keywordRequestDtoList) { // 추출된 키워드 보내기
-//        String reqText = "너는 사용자가 제공한 연인의 정보들로 연인의 선물을 추천한다.\n" +
-//                "정확한 근거 없는 내용은 피한다.\n" +
-//                "소개와 설명을 제공한다.\n" +
-//                "\n";
-//
-//        for (int i = 0; i < keywordRequestDtoList.size(); i++) {
-//            Integer index = keywordRequestDtoList.get(i).getQuestion_id();
-//            reqText += "input: " + Q_AA_LIST.get(index).getQuestion();
-//            reqText += "\noutput: " + (keywordRequestDtoList.get(i).getAnswer() == 0 ? Q_AA_LIST.get(index).getAnswer1() : Q_AA_LIST.get(index).getAnswer2());
-//            reqText += "\n\n";
-//        }
-//
-//        reqText += "input: 연인에게 선물할 물건명 한가지와 추천한 선물에 대한 설명을 제공한다.\n" +
-//                "output:\n";
+        String requestURL = "POST https://asia-northeast3-aiplatform.googleapis.com/v1/projects/{PROJECT_ID}/locations/asia-northeast3/publishers/google/models/gemini-pro:streamGenerateContent?alt=sse";
 
+        String reqText = "너는 사용자가 제공한 연인의 정보들로 연인의 선물을 추천한다.\n" +
+                "정확한 근거 없는 내용은 피한다.\n" +
+                "소개와 설명을 제공한다.\n" +
+                "\n";
 
+        for (int i = 0; i < keywordRequestDtoList.size(); i++) {
+            Integer index = keywordRequestDtoList.get(i).getQuestion_id();
+            reqText += "input: " + Q_AA_LIST.get(index).getQuestion();
+            reqText += "\noutput: " + (keywordRequestDtoList.get(i).getAnswer() == 0 ? Q_AA_LIST.get(index).getAnswer1() : Q_AA_LIST.get(index).getAnswer2());
+            reqText += "\n\n";
+        }
 
+        reqText += "input: 연인에게 선물할 물건명 한가지와 추천한 선물에 대한 설명을 제공한다.\n" +
+                "output:\n";
 
-        String requestURL = "";
-        String API_KEY = "";
+        List<String> resText = new ArrayList<>();
 
-        List<String> response = new ArrayList<>();
-        response.add("key");
-        response.add("det");
+        //resText[0] keyword substring (품목)
+        //resText[1] detail substring (설명)
 
-//        try {
-//            HttpClient client = HttpClientBuilder.create().build();
-//            HttpGet getRequest = new HttpGet(requestURL);
-//            getRequest.addHeader("x-api-key", API_KEY);
-//
-//            HttpResponse response = client.execute(getRequest);
-//
-//            //Response 출력
-//            if (response.getStatusLine().getStatusCode() == 200) {
-//                ResponseHandler<String> handler = new BasicResponseHandler();
-//                String body = handler.handleResponse(response);
-//                response.add(keyword);
-        //      response.add(detail);
-//            } else {
-//                System.out.println("response is error : " + response.getStatusLine().getStatusCode());
-//            }
-//
-//        } catch (Exception e){
-//            System.err.println(e.toString());
-//        }
-
-        return response;
+        return resText;
     }
 
 
