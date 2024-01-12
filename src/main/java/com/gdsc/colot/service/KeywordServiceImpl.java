@@ -1,12 +1,18 @@
 package com.gdsc.colot.service;
 
+import com.google.cloud.vertexai.VertexAI;
 import com.gdsc.colot.controller.dto.request.KeywordRequestDto;
 import com.gdsc.colot.controller.dto.response.QnA;
 import com.gdsc.colot.controller.dto.response.QnAResponseDto;
+import com.google.cloud.vertexai.api.GenerateContentResponse;
+import com.google.cloud.vertexai.generativeai.preview.ChatSession;
+import com.google.cloud.vertexai.generativeai.preview.GenerativeModel;
+import com.google.cloud.vertexai.generativeai.preview.ResponseHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,18 +25,18 @@ public class KeywordServiceImpl implements KeywordService {
     private final int Q_CNT = 8;
 
     public static final List<QnA> qnAList = List.of(
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2")
+            new QnA("q1", "a1", "a2"),
+            new QnA("q2", "a1", "a2"),
+            new QnA("q3", "a1", "a2"),
+            new QnA("q4", "a1", "a2"),
+            new QnA("q5", "a1", "a2"),
+            new QnA("q6", "a1", "a2"),
+            new QnA("q7", "a1", "a2"),
+            new QnA("q8", "a1", "a2"),
+            new QnA("q9", "a1", "a2"),
+            new QnA("q10", "a1", "a2"),
+            new QnA("q11", "a1", "a2"),
+            new QnA("q12", "a1", "a2")
     );
 
     @Override
@@ -83,5 +89,44 @@ public class KeywordServiceImpl implements KeywordService {
 //        }
 
         return keyword;
+    }
+
+    @Override
+    public String vertexAI() throws IOException {
+        String projectId = "cookiehouse-405120";
+        String location = "asia-northeast3";
+        String modelName = "gemini-pro";
+
+        return chatDiscussion(projectId, location, modelName);
+    }
+
+    public static String chatDiscussion(String projectId, String location, String modelName)
+            throws IOException {
+        // Initialize client that will be used to send requests. This client only needs
+        // to be created once, and can be reused for multiple requests.
+        try (VertexAI vertexAI = new VertexAI(projectId, location)) {
+            GenerateContentResponse response;
+
+            GenerativeModel model = new GenerativeModel(modelName, vertexAI);
+            // Create a chat session to be used for interactive conversation.
+            ChatSession chatSession = new ChatSession(model);
+
+            response = chatSession.sendMessage("Hello.");
+            String r1 = ResponseHandler.getText(response);
+            System.out.println(r1);
+
+            response = chatSession.sendMessage("What are all the colors in a rainbow?");
+            String r2 = ResponseHandler.getText(response);
+            System.out.println(r2);
+
+            response = chatSession.sendMessage("Why does it appear when it rains?");
+            String r3 = ResponseHandler.getText(response);
+            System.out.println(r3);
+            System.out.println("Chat Ended.");
+
+            return r1 + r2 + r3;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

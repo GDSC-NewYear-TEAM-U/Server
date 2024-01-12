@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,5 +30,12 @@ public class KeywordController {
     public BaseResponse<String> keyword(@RequestBody @Valid KeywordRequestDto keywordRequestDto) {
         final String keyword = keywordService.getKeyword(keywordRequestDto);
         return BaseResponse.success(SuccessCode.GET_SUCCESS, keyword);
+    }
+
+    @GetMapping("/api/v2/vertexai")
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<String> test() throws IOException {
+        final String data = keywordService.vertexAI();
+        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS, data);
     }
 }
