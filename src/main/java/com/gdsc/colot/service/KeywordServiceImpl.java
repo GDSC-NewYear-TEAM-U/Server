@@ -120,7 +120,7 @@ public class KeywordServiceImpl implements KeywordService {
                 description = inputString.substring(descriptionIndex + 12).trim();
             }
 
-            return KeywordResponseDto.of(item, description, "");
+            return KeywordResponseDto.of(item, description, getImage(item));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
