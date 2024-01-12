@@ -23,6 +23,22 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class KeywordServiceImpl implements KeywordService {
     private final int Q_CNT = 8;
+
+    final List<QnA> qnAList = List.of(
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2"),
+            new QnA("q", "a1", "a2")
+    );
+
     @Override
     public QlistResponseDto getQuestion() { // 8개 질문 리스트 보내기
         List<Integer> numbers = new ArrayList<>();
@@ -30,18 +46,15 @@ public class KeywordServiceImpl implements KeywordService {
 
         while (numbers.size() < Q_CNT) {
             int randomNumber = (int) (Math.random() * qnAList.size());
-            if (uniqueNumbers.add(randomNumber)) {
+            if (uniqueNumbers.add(randomNumber))
                 numbers.add(randomNumber);
-            }
         }
 
-        QlistResponseDto qlistResponseDto = new QlistResponseDto();
         List<QnA> questionList = new ArrayList<>();
-        for (int n:numbers)
+        for (int n : numbers)
             questionList.add(qnAList.get(n));
 
-        qlistResponseDto.setQuestionList(questionList);
-        return qlistResponseDto;
+        return new QlistResponseDto(questionList);
     }
 
 
@@ -74,19 +87,4 @@ public class KeywordServiceImpl implements KeywordService {
 
         return keyword;
     }
-
-    List<QnA> qnAList = List.of(
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2"),
-            new QnA("q", "a1", "a2")
-    );
 }
