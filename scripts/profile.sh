@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 function find_idle_profile() {
-    RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1/profile)
+    RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://colot.site/profile)
 
     if [ ${RESPONSE_CODE} -ge 400 ]
     then
       CURRENT_PROFILE=real2
     else
-      CURRENT_PROFILE=$(curl -s http://127.0.0.1/profile)
+      CURRENT_PROFILE=$(curl -s https://colot.site/profile)
     fi
 
     if [ ${CURRENT_PROFILE} == real1 ]

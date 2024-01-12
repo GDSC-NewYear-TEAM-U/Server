@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,11 +27,37 @@ public class KeywordController {
         return BaseResponse.success(SuccessCode.GET_SUCCESS, questionList);
     }
 
-    @PostMapping("/api/v2/keyword")
+    @GetMapping("/api/v2/keyword")
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<KeywordResponseDto> keyword(@RequestBody @Valid List<KeywordRequestDto> keywordRequestDtoList) {
-//        final KeywordResponseDto data = keywordService.getKeyword(keywordRequestDtoList);
-        final KeywordResponseDto data = KeywordResponseDto.of("되나요", "됩니까", "되나용");
+    public BaseResponse<KeywordResponseDto> keyword(
+            @RequestParam("q1") Integer q1,
+            @RequestParam("a1") Integer a1,
+            @RequestParam("q2") Integer q2,
+            @RequestParam("a2") Integer a2,
+            @RequestParam("q3") Integer q3,
+            @RequestParam("a3") Integer a3,
+            @RequestParam("q4") Integer q4,
+            @RequestParam("a4") Integer a4,
+            @RequestParam("q5") Integer q5,
+            @RequestParam("a5") Integer a5,
+            @RequestParam("q6") Integer q6,
+            @RequestParam("a6") Integer a6,
+            @RequestParam("q7") Integer q7,
+            @RequestParam("a7") Integer a7,
+            @RequestParam("q8") Integer q8,
+            @RequestParam("a8") Integer a8
+    ) {
+        List<KeywordRequestDto> requestDtos = new ArrayList<>();
+        requestDtos.add(new KeywordRequestDto(q1, a1));
+        requestDtos.add(new KeywordRequestDto(q2, a2));
+        requestDtos.add(new KeywordRequestDto(q3, a3));
+        requestDtos.add(new KeywordRequestDto(q4, a4));
+        requestDtos.add(new KeywordRequestDto(q5, a5));
+        requestDtos.add(new KeywordRequestDto(q6, a6));
+        requestDtos.add(new KeywordRequestDto(q7, a7));
+        requestDtos.add(new KeywordRequestDto(q8, a8));
+        final KeywordResponseDto data = keywordService.getKeyword(requestDtos);
+//        final KeywordResponseDto data = KeywordResponseDto.of("되나요", "됩니까", "되나용");
         return BaseResponse.success(SuccessCode.GET_SUCCESS, data);
     }
 
