@@ -46,6 +46,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() // URL 별 권한 관리를 설정하는 옵션의 시작점
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()// OPTIONS 메소드는 모두 허용
                 .antMatchers(
+                        "/api/v1/**",
                         "/api/v2/**",
                         "/swagger-ui.html",
                         "/webjars/**",
