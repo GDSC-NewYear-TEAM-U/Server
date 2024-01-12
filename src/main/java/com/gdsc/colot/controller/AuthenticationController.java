@@ -97,7 +97,7 @@ public class AuthenticationController {
                 user.getType(),
                 jwtProvider.generateToken(userDetails.getUsername())
         );
-        response.sendRedirect("http://localhost:3001");
+        response.sendRedirect("http://localhost:3001" + "?name=" + user.getUsername());
 //        return BaseResponse.success(SuccessCode.LOGIN_SUCCESS, data);
     }
 
