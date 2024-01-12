@@ -1,15 +1,9 @@
 package com.gdsc.colot.service;
 
 import com.gdsc.colot.controller.dto.request.KeywordRequestDto;
-import com.gdsc.colot.controller.dto.response.QlistResponseDto;
 import com.gdsc.colot.controller.dto.response.QnA;
+import com.gdsc.colot.controller.dto.response.QnAResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +18,7 @@ import java.util.Set;
 public class KeywordServiceImpl implements KeywordService {
     private final int Q_CNT = 8;
 
-    final List<QnA> qnAList = List.of(
+    public static final List<QnA> qnAList = List.of(
             new QnA("q", "a1", "a2"),
             new QnA("q", "a1", "a2"),
             new QnA("q", "a1", "a2"),
@@ -40,7 +34,7 @@ public class KeywordServiceImpl implements KeywordService {
     );
 
     @Override
-    public QlistResponseDto getQuestion() { // 8개 질문 리스트 보내기
+    public List<QnAResponseDto> getQuestion() { // 8개 질문 리스트 보내기
         List<Integer> numbers = new ArrayList<>();
         Set<Integer> uniqueNumbers = new HashSet<>();
 
@@ -50,11 +44,14 @@ public class KeywordServiceImpl implements KeywordService {
                 numbers.add(randomNumber);
         }
 
-        List<QnA> questionList = new ArrayList<>();
+        List<QnAResponseDto> questionList = new ArrayList<>();
         for (int n : numbers)
-            questionList.add(qnAList.get(n));
+            questionList.add(
+                    new QnAResponseDto(qnAList.get(n).getQuestion(), qnAList.get(n).getAnswer1(), qnAList.get(n).getAnswer2())
+            );
 
-        return new QlistResponseDto(questionList);
+        return questionList;
+
     }
 
 

@@ -1,10 +1,12 @@
 package com.gdsc.colot.service;
 
 import com.gdsc.colot.controller.dto.request.KeywordRequestDto;
-import com.gdsc.colot.controller.dto.response.QlistResponseDto;
+import com.gdsc.colot.controller.dto.response.QnAResponseDto;
+
+import java.util.List;
 
 public interface KeywordService {
-    QlistResponseDto getQuestion();
+    List<QnAResponseDto> getQuestion();
 
     String getKeyword(KeywordRequestDto keywordRequestDto);
 }
