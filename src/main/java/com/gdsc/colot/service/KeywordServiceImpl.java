@@ -29,7 +29,7 @@ public class KeywordServiceImpl implements KeywordService {
         Set<Integer> uniqueNumbers = new HashSet<>();
 
         while (numbers.size() < Q_CNT) {
-            int randomNumber = (int) (Math.random() * qnAList.size()) + 1;
+            int randomNumber = (int) (Math.random() * qnAList.size());
             if (uniqueNumbers.add(randomNumber)) {
                 numbers.add(randomNumber);
             }
