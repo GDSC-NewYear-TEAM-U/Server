@@ -57,17 +57,20 @@ public class KeywordServiceImpl implements KeywordService {
 
     @Override
     public List<String> getKeyword(List<KeywordRequestDto> keywordRequestDtoList) { // 추출된 키워드 보내기
-        String reqText = "";
-
-        for (int i = 0; i < keywordRequestDtoList.size(); i++) {
-
-        }
-
-
-
-
-
-
+//        String reqText = "너는 사용자가 제공한 연인의 정보들로 연인의 선물을 추천한다.\n" +
+//                "정확한 근거 없는 내용은 피한다.\n" +
+//                "소개와 설명을 제공한다.\n" +
+//                "\n";
+//
+//        for (int i = 0; i < keywordRequestDtoList.size(); i++) {
+//            Integer index = keywordRequestDtoList.get(i).getQuestion_id();
+//            reqText += "input: " + Q_AA_LIST.get(index).getQuestion();
+//            reqText += "\noutput: " + (keywordRequestDtoList.get(i).getAnswer() == 0 ? Q_AA_LIST.get(index).getAnswer1() : Q_AA_LIST.get(index).getAnswer2());
+//            reqText += "\n\n";
+//        }
+//
+//        reqText += "input: 연인에게 선물할 물건명 한가지와 추천한 선물에 대한 설명을 제공한다.\n" +
+//                "output:\n";
 
 
 
@@ -76,6 +79,8 @@ public class KeywordServiceImpl implements KeywordService {
         String API_KEY = "";
 
         List<String> response = new ArrayList<>();
+        response.add("key");
+        response.add("det");
 
 //        try {
 //            HttpClient client = HttpClientBuilder.create().build();
@@ -98,7 +103,7 @@ public class KeywordServiceImpl implements KeywordService {
 //            System.err.println(e.toString());
 //        }
 
-        return null;
+        return response;
     }
 
 

@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class KeywordRequestDto {
     private Integer question_id;
-    private String answer;
+    private Integer answer;
 }
 
