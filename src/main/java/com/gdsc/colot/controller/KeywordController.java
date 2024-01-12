@@ -29,12 +29,8 @@ public class KeywordController {
     @PostMapping("/api/v2/keyword")
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse<KeywordResponseDto> keyword(@RequestBody @Valid List<KeywordRequestDto> keywordRequestDtoList) {
-        final List<String> tmp = keywordService.getKeyword(keywordRequestDtoList);
-        final String keyword = tmp.get(0);
-        final String detail = tmp.get(1);
-        final String image = keywordService.getImage(keyword);
-        final KeywordResponseDto keywordResponseDto = new KeywordResponseDto(keyword, detail, image);
-        return BaseResponse.success(SuccessCode.GET_SUCCESS, keywordResponseDto);
+        final KeywordResponseDto data = keywordService.getKeyword(keywordRequestDtoList);
+        return BaseResponse.success(SuccessCode.GET_SUCCESS, data);
     }
 
     @GetMapping("/api/v2/vertexai")

@@ -8,7 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KeywordResponseDto {
+
     private String keyword;
     private String detail;
     private String image;
+
+    public static KeywordResponseDto of(String keyword, String detail, String image) {
+        return new KeywordResponseDto(keyword, detail, image);
+    }
+
 }

@@ -11,7 +11,6 @@ public interface KeywordService {
     List<QnAResponseDto> getQuestion();
 
     String vertexAI() throws IOException;
-    List<String> getKeyword(List<KeywordRequestDto> keywordRequestDtoList);
+    KeywordResponseDto getKeyword(List<KeywordRequestDto> keywordRequestDtoList);
 
-    String getImage(String keyword);
 }
