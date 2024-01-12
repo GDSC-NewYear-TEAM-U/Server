@@ -10,13 +10,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class QnAResponseDto {
-
+    private Integer question_id;
     private String question;
     private String answer1;
     private String answer2;
 
-    public static QnAResponseDto of(String question, String answer1, String answer2) {
-        return new QnAResponseDto(question, answer1, answer2);
+    public static QnAResponseDto of(Integer question_id, String question, String answer1, String answer2) {
+        return new QnAResponseDto(question_id, question, answer1, answer2);
     }
 
 }

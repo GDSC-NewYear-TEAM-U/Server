@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KeywordRequestDto {
-    private String question;
+    private Integer question_id;
     private String answer;
 }
 

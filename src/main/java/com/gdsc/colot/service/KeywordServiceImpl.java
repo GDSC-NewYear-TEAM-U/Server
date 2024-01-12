@@ -19,18 +19,18 @@ public class KeywordServiceImpl implements KeywordService {
     private final int Q_CNT = 8;
 
     public static final List<QnAResponseDto> Q_AA_LIST = List.of(
-            new QnAResponseDto("q1", "a11", "a21"),
-            new QnAResponseDto("q2", "a12", "a22"),
-            new QnAResponseDto("q3", "a13", "a23"),
-            new QnAResponseDto("q4", "a14", "a24"),
-            new QnAResponseDto("q5", "a15", "a25"),
-            new QnAResponseDto("q6", "a16", "a26"),
-            new QnAResponseDto("q7", "a17", "a27"),
-            new QnAResponseDto("q8", "a18", "a28"),
-            new QnAResponseDto("q9", "a19", "a29"),
-            new QnAResponseDto("q10", "a110", "a210"),
-            new QnAResponseDto("q11", "a111", "a211"),
-            new QnAResponseDto("q12", "a112", "a212")
+            new QnAResponseDto(0, "q1", "a11", "a21"),
+            new QnAResponseDto(1, "q2", "a12", "a22"),
+            new QnAResponseDto(2, "q3", "a13", "a23"),
+            new QnAResponseDto(3, "q4", "a14", "a24"),
+            new QnAResponseDto(4, "q5", "a15", "a25"),
+            new QnAResponseDto(5, "q6", "a16", "a26"),
+            new QnAResponseDto(6, "q7", "a17", "a27"),
+            new QnAResponseDto(7, "q8", "a18", "a28"),
+            new QnAResponseDto(8, "q9", "a19", "a29"),
+            new QnAResponseDto(9, "q10", "a110", "a210"),
+            new QnAResponseDto(10, "q11", "a111", "a211"),
+            new QnAResponseDto(11, "q12", "a112", "a212")
     );
 
     @Override
@@ -47,7 +47,7 @@ public class KeywordServiceImpl implements KeywordService {
         List<QnAResponseDto> questionList = new ArrayList<>();
         for (int n : numbers)
             questionList.add(
-                    new QnAResponseDto(Q_AA_LIST.get(n).getQuestion(), Q_AA_LIST.get(n).getAnswer1(), Q_AA_LIST.get(n).getAnswer2())
+                    new QnAResponseDto(n, Q_AA_LIST.get(n).getQuestion(), Q_AA_LIST.get(n).getAnswer1(), Q_AA_LIST.get(n).getAnswer2())
             );
 
         return questionList;
@@ -57,6 +57,21 @@ public class KeywordServiceImpl implements KeywordService {
 
     @Override
     public List<String> getKeyword(List<KeywordRequestDto> keywordRequestDtoList) { // 추출된 키워드 보내기
+        String reqText = "";
+
+        for (int i = 0; i < keywordRequestDtoList.size(); i++) {
+
+        }
+
+
+
+
+
+
+
+
+
+
         String requestURL = "";
         String API_KEY = "";
 
@@ -83,7 +98,7 @@ public class KeywordServiceImpl implements KeywordService {
 //            System.err.println(e.toString());
 //        }
 
-        return response;
+        return null;
     }
 
 
