@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -24,14 +26,12 @@ public class KeywordServiceImpl implements KeywordService {
     @Override
     public QlistResponseDto getQuestion() { // 8개 질문 리스트 보내기
         List<Integer> numbers = new ArrayList<>();
+        Set<Integer> uniqueNumbers = new HashSet<>();
 
-        for (int i = 0; i < Q_CNT ; i++) {
-            numbers.add((int) (Math.random() * qnAList.size()) + 1);
-            for (int j = 0; j < i; j++) {
-                if (numbers.get(i).equals(numbers.get(j))) {
-                    numbers.remove(i);
-                    break;
-                }
+        while (numbers.size() < Q_CNT) {
+            int randomNumber = (int) (Math.random() * qnAList.size()) + 1;
+            if (uniqueNumbers.add(randomNumber)) {
+                numbers.add(randomNumber);
             }
         }
 
